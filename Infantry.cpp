@@ -1,7 +1,8 @@
 #include "Infantry.h"
 
 Infantry::ActionMeta Infantry::turnAction() {
-
+	ActionMeta meta;
+	return meta;
 }
 
 Swordsman::Swordsman() {
@@ -11,15 +12,19 @@ Swordsman::Swordsman() {
 }
 
 Swordsman::ActionMeta Swordsman::userAction() {
-
+	ActionMeta meta;
+	return meta;
 }
 
 Swordsman::ActionMeta Swordsman::defend(Swordsman::ActionMeta) {
-
+	ActionMeta meta;
+	return meta;
 }
 
 BoardUnit* Swordsman::getCopy() {
-
+	auto man = new Swordsman();
+	man->_stats = this->_stats;
+	return man;
 }
 
 Spearman::Spearman() {
@@ -29,15 +34,19 @@ Spearman::Spearman() {
 }
 
 Spearman::ActionMeta Spearman::userAction() {
-
+	ActionMeta meta;
+	return meta;
 }
 
 Spearman::ActionMeta Spearman::defend(Spearman::ActionMeta) {
-
+	ActionMeta meta;
+	return meta;
 }
 
 BoardUnit* Spearman::getCopy() {
-
+	auto man = new Spearman();
+	man->_stats = this->_stats;
+	return man;
 }
 
 BoardUnit* InfantryFactory::getType(int type) {
