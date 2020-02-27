@@ -176,7 +176,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="BoardUnit.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Infantry.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayableBoardUnit.cpp" />
+    <ClCompile Include="BoardUnitFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -203,6 +208,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="BoardUnit.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Infantry.h" />
+    <ClInclude Include="PlayableBoardUnit.h" />
+    <ClInclude Include="BoardUnitFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
