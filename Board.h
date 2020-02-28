@@ -20,6 +20,7 @@ public:
 	void removeUnit(BoardUnit* unit);
 	void moveUnit(BoardUnit* unit, unsigned int x, unsigned int y);
 	void moveUnit(unsigned int current_x, unsigned int current_y, unsigned int intended_x, unsigned int intended_y);
+	void _debug_print();
 
 	BoardUnit* operator()(unsigned int x, unsigned int y);
 protected:

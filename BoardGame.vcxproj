@@ -175,8 +175,10 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Artillery.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardUnit.cpp" />
+    <ClCompile Include="Cavalry.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Infantry.cpp" />
     <ClCompile Include="main.cpp" />
@@ -207,8 +209,10 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Artillery.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="BoardUnit.h" />
+    <ClInclude Include="Cavalry.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Infantry.h" />
     <ClInclude Include="PlayableBoardUnit.h" />

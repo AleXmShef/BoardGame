@@ -1,6 +1,8 @@
 #include "Board.h"
+#include <QDebug>
+#include <string>
 
-Board::Board(BoardProperties* properties) {
+Board::Board(BoardProperties* properties) : mBoardProperties(properties) {
 	boardArray = new BoardCell* [properties->sizeY];
 	for (int i = 0; i < properties->sizeY; i++) {
 		BoardCell* tCellArray = new BoardCell[properties->sizeX];
@@ -19,7 +21,7 @@ void Board::addUnit(BoardUnit* newUnit, unsigned int x, unsigned int y) {
 		//throw
 		return;
 	}
-	tCell->isEmpty = true;
+	tCell->isEmpty = false;
 	tCell->unit = newUnit;
 	unitCount++;
 }
@@ -106,6 +108,25 @@ void Board::moveUnit(unsigned int current_x, unsigned int current_y, unsigned in
 	toCell->unit = fromCell->unit;
 	fromCell->unit = nullptr;
 	fromCell->isEmpty = true;
+}
+
+void Board::_debug_print() {
+	qInfo() << "--------------------Board start----------------------";
+	for (int i = 0; i < mBoardProperties->sizeY; i++) {
+		std::string tstr;
+		for (int j = 0; j < mBoardProperties->sizeX; j++) {
+			if (boardArray[i][j].isEmpty) {
+				tstr += "[ ]";
+			}
+			else
+				tstr += "[X]";
+			tstr += " ";
+		}
+		qInfo() << " ";
+		qInfo() << tstr.c_str();
+	}
+	qInfo() << "--------------------Board end----------------------";
+	qInfo() << " ";
 }
 
 
