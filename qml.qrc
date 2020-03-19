@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>images/main_menu_background.jpg</file>
     </qresource>
 </RCC>

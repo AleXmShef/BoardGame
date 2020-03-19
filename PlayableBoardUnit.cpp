@@ -1,7 +1,7 @@
 #include "PlayableBoardUnit.h"
 
-bool PlayableBoardUnit::isAttackable() {
-	return true;
+PlayableBoardUnit::PlayableBoardUnit() {
+
 }
 
 PlayableBoardUnit::Stats PlayableBoardUnit::getStats() {

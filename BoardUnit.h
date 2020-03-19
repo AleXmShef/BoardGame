@@ -1,7 +1,9 @@
 #pragma once
+#include <vector>
 class BoardUnit
 {
 public:
+	enum class UnitType{Pongo, Base, Terrain, Misc};
 	struct ActionMeta {
 		BoardUnit* fromUnit = nullptr;
 		BoardUnit* toUnit = nullptr;
@@ -21,10 +23,13 @@ public:
 	BoardUnit();
 	~BoardUnit();
 	virtual BoardUnit* getCopy() = 0;
-	virtual ActionMeta turnAction() = 0;
-	virtual bool isAttackable() = 0;
-	static unsigned int getUnitCount();
+	virtual std::vector<ActionMeta> turnAction() = 0;
+	//virtual UnitType getType() = 0;
+	unsigned int getID();
 private:
+	static unsigned int getUnitCount();
 	static unsigned int unitCount;
+	static unsigned int idCount;
+	unsigned int _id;
 };
 

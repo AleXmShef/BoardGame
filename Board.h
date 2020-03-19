@@ -1,5 +1,7 @@
 #pragma once
 #include "BoardUnit.h"
+#include "TerrainBoardUnit.h"
+#include "Grass.h"
 class Board
 {
 public:
@@ -11,6 +13,7 @@ public:
 	struct BoardCell {
 		bool isEmpty = true;
 		BoardUnit* unit = nullptr;
+		BoardUnit* terrainUnit = nullptr;
 	};
 public:
 	Board(BoardProperties* properties);

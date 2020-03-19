@@ -1,35 +1,37 @@
 #pragma once
-#include "PlayableBoardUnit.h"
+#include "PongoBoardUnit.h"
 #include "BoardUnitFactory.h"
-class Infantry : public PlayableBoardUnit
+#include "PongoBaseBoardUnit.h"
+
+class Infantry : public PongoBoardUnit
 {
 public:
-	Infantry() {};
-	ActionMeta turnAction() override;
+	Infantry(PongoBaseBoardUnit* base);
+	std::vector<ActionMeta> turnAction() override;
 };
 
-class Swordsman : public Infantry 
+class Swordsman : public Infantry
 {
 public:
-	Swordsman();
-	ActionMeta userAction() override;
-	ActionMeta defend(ActionMeta) override;
+	Swordsman(PongoBaseBoardUnit* base);
+	std::vector<ActionMeta> userAction() override;
+	std::vector<ActionMeta> defend(ActionMeta) override;
 	BoardUnit* getCopy() override;
 };
 
 class Spearman : public Infantry
 {
 public:
-	Spearman();
-	ActionMeta userAction() override;
-	ActionMeta defend(ActionMeta) override;
+	Spearman(PongoBaseBoardUnit* base);
+	std::vector<ActionMeta> userAction() override;
+	std::vector<ActionMeta> defend(ActionMeta) override;
 	BoardUnit* getCopy() override;
 };
 
 class InfantryFactory : public BoardUnitFactory
 {
 public:
-	InfantryFactory() {};
-	BoardUnit* getType(int type) override;
+	InfantryFactory(PongoBaseBoardUnit* base) : BoardUnitFactory(base) {};
+	PlayableBoardUnit* getType(int type) override;
 };
 

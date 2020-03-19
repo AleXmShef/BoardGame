@@ -1,35 +1,36 @@
 #pragma once
-#include "PlayableBoardUnit.h"
+#include "PongoBoardUnit.h"
 #include "BoardUnitFactory.h"
-class Cavalry : public PlayableBoardUnit
+#include "PongoBaseBoardUnit.h"
+
+class Cavalry : public PongoBoardUnit
 {
 public:
-	Cavalry() {};
-	ActionMeta turnAction() override;
+	Cavalry(PongoBaseBoardUnit* base);
+	std::vector<ActionMeta> turnAction() override;
 };
 
 class HeavyCavalry : public Cavalry
 {
 public:
-	HeavyCavalry();
-	ActionMeta userAction() override;
-	ActionMeta defend(ActionMeta) override;
+	HeavyCavalry(PongoBaseBoardUnit* base);
+	std::vector<ActionMeta> userAction() override;
+	std::vector<ActionMeta> defend(ActionMeta) override;
 	BoardUnit* getCopy() override;
 };
 
 class LightCavalry : public Cavalry
 {
 public:
-	LightCavalry();
-	ActionMeta userAction() override;
-	ActionMeta defend(ActionMeta) override;
+	LightCavalry(PongoBaseBoardUnit* base);
+	std::vector<ActionMeta> userAction() override;
+	std::vector<ActionMeta> defend(ActionMeta) override;
 	BoardUnit* getCopy() override;
 };
 
 class CavalryFactory : public BoardUnitFactory
 {
 public:
-	CavalryFactory() {};
-	BoardUnit* getType(int type) override;
+	CavalryFactory(PongoBaseBoardUnit* base) : BoardUnitFactory(base) {};
+	PlayableBoardUnit* getType(int type) override;
 };
-

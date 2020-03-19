@@ -1,62 +1,72 @@
 #include "Artillery.h"
 
-Artillery::ActionMeta Artillery::turnAction() {
-	ActionMeta meta;
-	return meta;
+Artillery::Artillery(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
+
 }
 
-Cannon::Cannon() {
+std::vector<Artillery::ActionMeta> Artillery::turnAction() {
+	std::vector<Cannon::ActionMeta> actionVec;
+	ActionMeta meta;
+	actionVec.push_back(meta);
+	return actionVec;
+}
+
+Cannon::Cannon(PongoBaseBoardUnit* base) : Artillery(base) {
 	_stats.health = 10;
 	_stats.armor = 15;
 	_stats.attack = 20;
 }
 
-Cannon::ActionMeta Cannon::userAction() {
+std::vector<Cannon::ActionMeta> Cannon::userAction() {
+	std::vector<Cannon::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
-Cannon::ActionMeta Cannon::defend(Cannon::ActionMeta) {
+std::vector<Cannon::ActionMeta> Cannon::defend(Cannon::ActionMeta) {
+	std::vector<Cannon::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
 BoardUnit* Cannon::getCopy() {
-	auto man = new Cannon();
-	man->_stats = this->_stats;
-	return man;
+	return nullptr;
 }
 
-Catapult::Catapult() {
+Catapult::Catapult(PongoBaseBoardUnit* base) : Artillery(base) {
 	_stats.health = 10;
 	_stats.armor = 15;
 	_stats.attack = 20;
 }
 
-Catapult::ActionMeta Catapult::userAction() {
+std::vector<Cannon::ActionMeta> Catapult::userAction() {
+	std::vector<Cannon::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
-Catapult::ActionMeta Catapult::defend(Catapult::ActionMeta) {
+std::vector<Cannon::ActionMeta> Catapult::defend(Catapult::ActionMeta) {
+	std::vector<Cannon::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
 BoardUnit* Catapult::getCopy() {
-	auto man = new Catapult();
-	man->_stats = this->_stats;
-	return man;
+	return nullptr;
 }
 
-BoardUnit* ArtilleryFactory::getType(int type) {
+PlayableBoardUnit* ArtilleryFactory::getType(int type) {
 	switch (type)
 	{
 	case 0:
-		return (BoardUnit*)(new Cannon());
+		return (PlayableBoardUnit*)(new Cannon(_base));
 		break;
 	case 1:
-		return (BoardUnit*)(new Catapult());
+		return (PlayableBoardUnit*)(new Catapult(_base));
 		break;
 	default:
 		//throw

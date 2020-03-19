@@ -1,62 +1,72 @@
 #include "Cavalry.h"
 
-Cavalry::ActionMeta Cavalry::turnAction() {
-	ActionMeta meta;
-	return meta;
+Cavalry::Cavalry(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
+
 }
 
-HeavyCavalry::HeavyCavalry() {
+std::vector<Cavalry::ActionMeta> Cavalry::turnAction() {
+	std::vector<Cavalry::ActionMeta> actionVec;
+	ActionMeta meta;
+	actionVec.push_back(meta);
+	return actionVec;
+}
+
+HeavyCavalry::HeavyCavalry(PongoBaseBoardUnit* base) : Cavalry(base) {
 	_stats.health = 10;
 	_stats.armor = 15;
 	_stats.attack = 20;
 }
 
-HeavyCavalry::ActionMeta HeavyCavalry::userAction() {
+std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::userAction() {
+	std::vector<HeavyCavalry::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
-HeavyCavalry::ActionMeta HeavyCavalry::defend(HeavyCavalry::ActionMeta) {
+std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::defend(HeavyCavalry::ActionMeta) {
+	std::vector<HeavyCavalry::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
 BoardUnit* HeavyCavalry::getCopy() {
-	auto man = new HeavyCavalry();
-	man->_stats = this->_stats;
-	return man;
+	return nullptr;
 }
 
-LightCavalry::LightCavalry() {
+LightCavalry::LightCavalry(PongoBaseBoardUnit* base) : Cavalry(base) {
 	_stats.health = 10;
 	_stats.armor = 15;
 	_stats.attack = 20;
 }
 
-LightCavalry::ActionMeta LightCavalry::userAction() {
+std::vector<LightCavalry::ActionMeta> LightCavalry::userAction() {
+	std::vector<LightCavalry::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
-LightCavalry::ActionMeta LightCavalry::defend(LightCavalry::ActionMeta) {
+std::vector<LightCavalry::ActionMeta> LightCavalry::defend(LightCavalry::ActionMeta) {
+	std::vector<LightCavalry::ActionMeta> actionVec;
 	ActionMeta meta;
-	return meta;
+	actionVec.push_back(meta);
+	return actionVec;
 }
 
 BoardUnit* LightCavalry::getCopy() {
-	auto man = new LightCavalry();
-	man->_stats = this->_stats;
-	return man;
+	return nullptr;
 }
 
-BoardUnit* CavalryFactory::getType(int type) {
+PlayableBoardUnit* CavalryFactory::getType(int type) {
 	switch (type)
 	{
 	case 0:
-		return (BoardUnit*)(new HeavyCavalry());
+		return (PlayableBoardUnit*)(new HeavyCavalry(_base));
 		break;
 	case 1:
-		return (BoardUnit*)(new LightCavalry());
+		return (PlayableBoardUnit*)(new LightCavalry(_base));
 		break;
 	default:
 		//throw

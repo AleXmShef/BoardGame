@@ -180,10 +180,14 @@
     <ClCompile Include="BoardUnit.cpp" />
     <ClCompile Include="Cavalry.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Infantry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayableBoardUnit.cpp" />
     <ClCompile Include="BoardUnitFactory.cpp" />
+    <ClCompile Include="PongoBoardUnit.cpp" />
+    <ClCompile Include="TerrainBoardUnit.cpp" />
+    <ClCompile Include="PongoBaseBoardUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -214,9 +218,13 @@
     <ClInclude Include="BoardUnit.h" />
     <ClInclude Include="Cavalry.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="Infantry.h" />
     <ClInclude Include="PlayableBoardUnit.h" />
     <ClInclude Include="BoardUnitFactory.h" />
+    <ClInclude Include="PongoBoardUnit.h" />
+    <ClInclude Include="TerrainBoardUnit.h" />
+    <ClInclude Include="PongoBaseBoardUnit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -8,6 +8,11 @@ Board::Board(BoardProperties* properties) : mBoardProperties(properties) {
 		BoardCell* tCellArray = new BoardCell[properties->sizeX];
 		boardArray[i] = tCellArray;
 	}
+	for (int i = 0; i < mBoardProperties->sizeY; i++) {
+		for (int j = 0; j < mBoardProperties->sizeX; j++) {
+			boardArray[i][j].terrainUnit = new Grass();
+		}
+	}
 	//here we will need to populate the board with custom scenery (mountains, volcanos, rivers) using some noise textures
 }
 
@@ -61,7 +66,7 @@ BoardUnit* Board::operator()(unsigned int x, unsigned int y) {
 	return boardArray[y][x].unit;
 }
 
-Board::Board(Board& board) : unitCount(board.unitCount), freeCells(board.freeCells)
+Board::Board(Board& board) : unitCount(board.unitCount), freeCells(board.freeCells)	//does not work!!
 {
 	mBoardProperties = new BoardProperties(*(board.mBoardProperties));
 	boardArray = new BoardCell * [mBoardProperties->sizeY];
@@ -72,6 +77,7 @@ Board::Board(Board& board) : unitCount(board.unitCount), freeCells(board.freeCel
 			if (!board.boardArray[i][j].isEmpty) {
 				boardArray[i][j].isEmpty = false;
 				boardArray[i][j].unit = board.boardArray[i][j].unit->getCopy();
+				boardArray[i][j].terrainUnit = (TerrainBoardUnit*)(board.boardArray[i][j].terrainUnit->getCopy());
 			}
 		}
 	}
