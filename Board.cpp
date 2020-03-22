@@ -131,6 +131,7 @@ void Board::_debug_print() {
 		qInfo() << " ";
 		qInfo() << tstr.c_str();
 	}
+	qInfo() << " ";
 	qInfo() << "--------------------Board end----------------------";
 	qInfo() << " ";
 }

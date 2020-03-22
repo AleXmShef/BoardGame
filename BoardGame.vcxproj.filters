@@ -71,6 +71,9 @@
     <ClCompile Include="PongoBoardUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UItoBackendConnector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -87,6 +90,12 @@
     <QtRcc Include="qml.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <None Include="MainMenu.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="SettingsMenu.qml">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -125,5 +134,10 @@
     <ClInclude Include="PongoBoardUnit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="UItoBackendConnector.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

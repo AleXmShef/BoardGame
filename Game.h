@@ -15,5 +15,6 @@ protected:
 
 	QGuiApplication* _qApp;
 	QQmlApplicationEngine* _qEngine;
+	//UItoBackendConnector* _connector;
 };
 

@@ -188,6 +188,7 @@
     <ClCompile Include="PongoBoardUnit.cpp" />
     <ClCompile Include="TerrainBoardUnit.cpp" />
     <ClCompile Include="PongoBaseBoardUnit.cpp" />
+    <ClCompile Include="UItoBackendConnector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -209,6 +210,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="main.qml" />
+    <None Include="MainMenu.qml" />
+    <None Include="SettingsMenu.qml" />
     <QtRcc Include="qml.qrc">
     </QtRcc>
   </ItemGroup>
@@ -225,6 +228,7 @@
     <ClInclude Include="PongoBoardUnit.h" />
     <ClInclude Include="TerrainBoardUnit.h" />
     <ClInclude Include="PongoBaseBoardUnit.h" />
+    <QtMoc Include="UItoBackendConnector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

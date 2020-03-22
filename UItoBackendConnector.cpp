@@ -1,6 +1,8 @@
 #include "UItoBackendConnector.h"
 
-UItoBackendConnector::UItoBackendConnector(QObject* parent = nullptr) {
+UItoBackendConnector* UItoBackendConnector::mInstance = nullptr;
+
+UItoBackendConnector::UItoBackendConnector(QObject* parent) {
 	mGame = Game::getInstance();
 }
 

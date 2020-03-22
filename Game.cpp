@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Infantry.h"
 #include <QDebug>
+#include "UItoBackendConnector.h"
 
 Game* Game::mInstance = nullptr;
 
@@ -15,6 +16,7 @@ void Game::Init(int argc, char* argv[]) {
 	qInfo() << "--------------------Game Start----------------------";
 	qInfo() << " ";
 	//Initialize GUI
+	qmlRegisterSingletonType<UItoBackendConnector>("game", 1, 0, "UIConnector", UItoBackendConnector::UItoBackendConnector_singletonTypeProvider);
 	QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	_qApp = new QGuiApplication(argc, argv);
 	_qEngine = new QQmlApplicationEngine();
@@ -24,6 +26,7 @@ void Game::Init(int argc, char* argv[]) {
 			if (!obj && url == objUrl)
 				QCoreApplication::exit(-1);				//If there is no such file
 		}, Qt::QueuedConnection);
+	QObject::connect(_qEngine, &QQmlApplicationEngine::quit, _qApp, &QGuiApplication::quit);
 	_qEngine->load(url);
 
 	//Initializze game board and rules
@@ -32,7 +35,7 @@ void Game::Init(int argc, char* argv[]) {
 	boardProp->sizeY = 10;
 	boardProp->maxAllowedUnits = 10;
 	mGameBoard = new Board(boardProp);
-	mGameBoard->_debug_print();
+	//mGameBoard->_debug_print();
 }
 
 int Game::Start() {

@@ -14,6 +14,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        Artillery.cpp \
+        Board.cpp \
+        BoardUnit.cpp \
+        BoardUnitFactory.cpp \
+        Cavalry.cpp \
+        Game.cpp \
+        Grass.cpp \
+        Infantry.cpp \
+        PlayableBoardUnit.cpp \
+        PongoBaseBoardUnit.cpp \
+        PongoBoardUnit.cpp \
+        TerrainBoardUnit.cpp \
+        UItoBackendConnector.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -28,3 +41,27 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    Background.qml \
+    Board.qml \
+    BoardCellDelegate.qml \
+    BoardCellModel.qml \
+    MainMenu.qml \
+    SettingsMenu.qml \
+    main.qml
+
+HEADERS += \
+    Artillery.h \
+    Board.h \
+    BoardUnit.h \
+    BoardUnitFactory.h \
+    Cavalry.h \
+    Game.h \
+    Grass.h \
+    Infantry.h \
+    PlayableBoardUnit.h \
+    PongoBaseBoardUnit.h \
+    PongoBoardUnit.h \
+    TerrainBoardUnit.h \
+    UItoBackendConnector.h
