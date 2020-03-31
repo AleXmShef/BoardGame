@@ -14,22 +14,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        Artillery.cpp \
-        Board.cpp \
-        BoardUnit.cpp \
-        BoardUnitFactory.cpp \
-        Cavalry.cpp \
-        Game.cpp \
-        Grass.cpp \
-        Infantry.cpp \
-        PlayableBoardUnit.cpp \
-        PongoBaseBoardUnit.cpp \
-        PongoBoardUnit.cpp \
-        TerrainBoardUnit.cpp \
-        UItoBackendConnector.cpp \
-        main.cpp
+        source/Artillery.cpp \
+        source/Board.cpp \
+        source/BoardUnit.cpp \
+        source/BoardUnitFactory.cpp \
+        source/Cavalry.cpp \
+        source/Game.cpp \
+        source/Grass.cpp \
+        source/Infantry.cpp \
+        source/PlayableBoardUnit.cpp \
+        source/PongoBaseBoardUnit.cpp \
+        source/PongoBoardUnit.cpp \
+        source/Snow.cpp \
+        source/Stone.cpp \
+        source/TerrainBoardUnit.cpp \
+        source/Tree.cpp \
+        source/TreeLog.cpp \
+        source/UItoBackendConnector.cpp \
+        source/main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qt/qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -43,25 +47,41 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    Background.qml \
-    Board.qml \
-    BoardCellDelegate.qml \
-    BoardCellModel.qml \
-    MainMenu.qml \
-    SettingsMenu.qml \
-    main.qml
+    images/units/bush_01.png \
+    images/units/mashrooms_01.png \
+    images/units/stone_01.png \
+    images/units/tree_01.png \
+    images/units/tree_bottom_01.png \
+    images/units/tree_log_01.png \
+    images/units/tree_top_01.png \
+    qt/Background.qml \
+    qt/Board.qml \
+    qt/BoardCellDelegate.qml \
+    qt/BoardCellModel.qml \
+    qt/GameMenu.qml \
+    qt/MainMenu.qml \
+    qt/SettingsMenu.qml \
+    qt/main.qml
 
 HEADERS += \
-    Artillery.h \
-    Board.h \
-    BoardUnit.h \
-    BoardUnitFactory.h \
-    Cavalry.h \
-    Game.h \
-    Grass.h \
-    Infantry.h \
-    PlayableBoardUnit.h \
-    PongoBaseBoardUnit.h \
-    PongoBoardUnit.h \
-    TerrainBoardUnit.h \
-    UItoBackendConnector.h
+    include/Artillery.h \
+    include/Board.h \
+    include/BoardUnit.h \
+    include/BoardUnitFactory.h \
+    include/Cavalry.h \
+    include/Game.h \
+    include/Grass.h \
+    include/Infantry.h \
+    include/PlayableBoardUnit.h \
+    include/PongoBaseBoardUnit.h \
+    include/PongoBoardUnit.h \
+    include/Snow.h \
+    include/Stone.h \
+    include/TerrainBoardUnit.h \
+    include/Tree.h \
+    include/TreeLog.h \
+    include/UItoBackendConnector.h
+
+INCLUDEPATH += \
+    include \
+    "3rd party/"

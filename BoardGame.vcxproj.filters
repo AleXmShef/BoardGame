@@ -30,48 +30,72 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{a2bfd1f1-e312-4a2c-8cc6-368a3b20d564}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rd party">
+      <UniqueIdentifier>{1e44c2a5-d9aa-47dc-83bf-d69bf5f8b80d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source/Artillery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Board.cpp">
+    <ClCompile Include="source/Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BoardUnit.cpp">
+    <ClCompile Include="source/BoardUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="source/BoardUnitFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlayableBoardUnit.cpp">
+    <ClCompile Include="source/Cavalry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Infantry.cpp">
+    <ClCompile Include="source/Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BoardUnitFactory.cpp">
+    <ClCompile Include="source/Grass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cavalry.cpp">
+    <ClCompile Include="source/Infantry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Artillery.cpp">
+    <ClCompile Include="source/main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainBoardUnit.cpp">
+    <ClCompile Include="source/PlayableBoardUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Grass.cpp">
+    <ClCompile Include="source/PongoBaseBoardUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PongoBaseBoardUnit.cpp">
+    <ClCompile Include="source/PongoBoardUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PongoBoardUnit.cpp">
+    <ClCompile Include="source/River.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UItoBackendConnector.cpp">
+    <ClCompile Include="source/Snow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source/TerrainBoardUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source/UItoBackendConnector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Stone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DirtPit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ActionDispatcher.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TreeLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,59 +108,88 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="main.qml">
+    <None Include="ClassDiagram.cd">
+      <Filter>Generated Files</Filter>
+    </None>
+    <None Include="qt/main.qml">
       <Filter>Resource Files</Filter>
     </None>
-    <QtRcc Include="qml.qrc">
+    <None Include="qt/MainMenu.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="qt/SettingsMenu.qml">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include/PlayableBoardUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PongoBaseBoardUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PongoBoardUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/River.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Snow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/TerrainBoardUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Infantry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Grass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Artillery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/BoardUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/BoardUnitFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Cavalry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Stone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd party\Reputeless\PerlinNoise.hpp">
+      <Filter>3rd party</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DirtPit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ActionDispatcher.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TreeLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="qt/qml.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <None Include="MainMenu.qml">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="SettingsMenu.qml">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BoardUnit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayableBoardUnit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Infantry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BoardUnitFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cavalry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Artillery.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainBoardUnit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Grass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PongoBaseBoardUnit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PongoBoardUnit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="UItoBackendConnector.h">
+    <QtMoc Include="include/UItoBackendConnector.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

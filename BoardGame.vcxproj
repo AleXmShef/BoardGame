@@ -14,7 +14,7 @@
     <ProjectGuid>{0507A7AF-9F1F-3D02-B421-F53C636599B9}</ProjectGuid>
     <RootNamespace>BoardGame</RootNamespace>
     <Keyword>QtVS_v302</Keyword>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.18362.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -57,6 +57,7 @@
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtInstall>msvc2017_64</QtInstall>
     <QtModules>core;network;gui;qml;quick</QtModules>
+    <QtQMLDebugEnable>false</QtQMLDebugEnable>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <QtInstall>msvc2017_64</QtInstall>
@@ -75,6 +76,9 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BoardGame</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)/3rd party;$(ProjectDir)/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -175,20 +179,27 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Artillery.cpp" />
-    <ClCompile Include="Board.cpp" />
-    <ClCompile Include="BoardUnit.cpp" />
-    <ClCompile Include="Cavalry.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Grass.cpp" />
-    <ClCompile Include="Infantry.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="PlayableBoardUnit.cpp" />
-    <ClCompile Include="BoardUnitFactory.cpp" />
-    <ClCompile Include="PongoBoardUnit.cpp" />
-    <ClCompile Include="TerrainBoardUnit.cpp" />
-    <ClCompile Include="PongoBaseBoardUnit.cpp" />
-    <ClCompile Include="UItoBackendConnector.cpp" />
+    <ClCompile Include="source/Artillery.cpp" />
+    <ClCompile Include="source/Board.cpp" />
+    <ClCompile Include="source/BoardUnit.cpp" />
+    <ClCompile Include="source/Cavalry.cpp" />
+    <ClCompile Include="source/Game.cpp" />
+    <ClCompile Include="source/Grass.cpp" />
+    <ClCompile Include="source/Infantry.cpp" />
+    <ClCompile Include="source/main.cpp" />
+    <ClCompile Include="source/PlayableBoardUnit.cpp" />
+    <ClCompile Include="source/BoardUnitFactory.cpp" />
+    <ClCompile Include="source/PongoBoardUnit.cpp" />
+    <ClCompile Include="source/River.cpp" />
+    <ClCompile Include="source/Snow.cpp" />
+    <ClCompile Include="source/TerrainBoardUnit.cpp" />
+    <ClCompile Include="source/PongoBaseBoardUnit.cpp" />
+    <ClCompile Include="source/UItoBackendConnector.cpp" />
+    <ClCompile Include="source\ActionDispatcher.cpp" />
+    <ClCompile Include="source\DirtPit.cpp" />
+    <ClCompile Include="source\Stone.cpp" />
+    <ClCompile Include="source\Tree.cpp" />
+    <ClCompile Include="source\TreeLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -209,26 +220,35 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="main.qml" />
-    <None Include="MainMenu.qml" />
-    <None Include="SettingsMenu.qml" />
-    <QtRcc Include="qml.qrc">
+    <None Include="ClassDiagram.cd" />
+    <None Include="qt/main.qml" />
+    <None Include="qt/MainMenu.qml" />
+    <None Include="qt/SettingsMenu.qml" />
+    <QtRcc Include="qt/qml.qrc">
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Artillery.h" />
-    <ClInclude Include="Board.h" />
-    <ClInclude Include="BoardUnit.h" />
-    <ClInclude Include="Cavalry.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Grass.h" />
-    <ClInclude Include="Infantry.h" />
-    <ClInclude Include="PlayableBoardUnit.h" />
-    <ClInclude Include="BoardUnitFactory.h" />
-    <ClInclude Include="PongoBoardUnit.h" />
-    <ClInclude Include="TerrainBoardUnit.h" />
-    <ClInclude Include="PongoBaseBoardUnit.h" />
-    <QtMoc Include="UItoBackendConnector.h" />
+    <ClInclude Include="3rd party\Reputeless\PerlinNoise.hpp" />
+    <ClInclude Include="include/Artillery.h" />
+    <ClInclude Include="include/Board.h" />
+    <ClInclude Include="include/BoardUnit.h" />
+    <ClInclude Include="include/Cavalry.h" />
+    <ClInclude Include="include/Game.h" />
+    <ClInclude Include="include/Grass.h" />
+    <ClInclude Include="include/Infantry.h" />
+    <ClInclude Include="include/PlayableBoardUnit.h" />
+    <ClInclude Include="include/BoardUnitFactory.h" />
+    <ClInclude Include="include/PongoBoardUnit.h" />
+    <ClInclude Include="include/River.h" />
+    <ClInclude Include="include/Snow.h" />
+    <ClInclude Include="include/TerrainBoardUnit.h" />
+    <ClInclude Include="include/PongoBaseBoardUnit.h" />
+    <ClInclude Include="include\ActionDispatcher.h" />
+    <ClInclude Include="include\DirtPit.h" />
+    <ClInclude Include="include\Stone.h" />
+    <ClInclude Include="include\Tree.h" />
+    <ClInclude Include="include\TreeLog.h" />
+    <QtMoc Include="include/UItoBackendConnector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
