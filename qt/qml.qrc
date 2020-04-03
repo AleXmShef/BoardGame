@@ -28,5 +28,10 @@
         <file>../images/units/tree_log_01.png</file>
         <file>../images/units/tree_top_01.png</file>
         <file>../images/units/tree_01.png</file>
+        <file>MyButton.qml</file>
+        <file>UnitStats.qml</file>
+        <file>NewGameMenu.qml</file>
+        <file>../images/assets/triangle_button.png</file>
+        <file>../images/assets/triangle_button_selected.png</file>
     </qresource>
 </RCC>

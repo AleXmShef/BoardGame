@@ -17,51 +17,37 @@ Item {
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 4
-                Text {
+                MyButton {
                     Layout.alignment: Qt.AlignCenter
-                    font.pointSize: 32
-                    font.bold: true
-                    //anchors.fill: parent
-                    text: "New Game"
-                    color: "white"
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {parent.color = "orange"}
-                        onExited: {parent.color = "white"}
-                        onClicked: {mainAppStackView.push(board_d)}
+                    id: newGameButton
+                    _text: "New Game"
+                    Connections {
+                        target: newGameButton._mouseArea
+                        function onClicked(mouse) {
+                            mainAppStackView.push(newGameMenu)
+                        }
                     }
                 }
-                Text {
+                MyButton {
                     Layout.alignment: Qt.AlignCenter
-                    font.pointSize: 32
-                    font.bold: true
-                    //anchors.fill: parent
-                    text: "Settings"
-                    color: "white"
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {parent.color = "orange"}
-                        onExited: {parent.color = "white"}
-                        onClicked: {
+                    id: settingsButton
+                    _text: "Settings"
+                    Connections {
+                        target: settingsButton._mouseArea
+                        function onClicked(mouse) {
                             mainAppStackView.push(settingsMenu)
                         }
                     }
                 }
-                Text {
+                MyButton {
                     Layout.alignment: Qt.AlignCenter
-                    font.pointSize: 32
-                    font.bold: true
-                    //anchors.fill: parent
-                    text: "Quit"
-                    color: "white"
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {parent.color = "orange"}
-                        onExited: {parent.color = "white"}
-                        onClicked: {Qt.quit()}
+                    id: quitButton
+                    _text: "Quit"
+                    Connections {
+                        target: quitButton._mouseArea
+                        function onClicked(mouse) {
+                            Qt.quit()
+                        }
                     }
                 }
             }

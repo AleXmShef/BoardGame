@@ -17,19 +17,13 @@ Item {
             ColumnLayout {
                 anchors.fill: parent
                 spacing: 4
-                Text {
+                MyButton {
                     Layout.alignment: Qt.AlignCenter
-                    font.pointSize: 32
-                    font.bold: true
-                    //anchors.fill: parent
-                    text: "Toggle FullScreen"
-                    color: "white"
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {parent.color = "orange"}
-                        onExited: {parent.color = "white"}
-                        onClicked: {
+                    id: fullscreenToggleButton
+                    _text: "Toggle Fullscreen"
+                    Connections {
+                        target: fullscreenToggleButton._mouseArea
+                        function onClicked(mouse) {
                             if (window.visibility === Window.Windowed) {
                                 window.showFullScreen()
                             }
@@ -39,19 +33,15 @@ Item {
                         }
                     }
                 }
-                Text {
+                MyButton {
                     Layout.alignment: Qt.AlignCenter
-                    font.pointSize: 32
-                    font.bold: true
-                    //anchors.fill: parent
-                    text: "Back"
-                    color: "white"
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {parent.color = "orange"}
-                        onExited: {parent.color = "white"}
-                        onClicked: {mainAppStackView.pop()}
+                    id: quitButton
+                    _text: "Back"
+                    Connections {
+                        target: quitButton._mouseArea
+                        function onClicked(mouse) {
+                            mainAppStackView.pop()
+                        }
                     }
                 }
             }

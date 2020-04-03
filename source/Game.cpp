@@ -49,6 +49,8 @@ void Game::initBoard(int sizeX, int sizeY, int maxAllowedUnits) {
 	boardProp->maxAllowedUnits = maxAllowedUnits;
 	mGameBoard = new Board(boardProp);
 	auto base = new PongoBaseBoardUnit();
+	if (!mGameBoard->getCellAt(4, 9).isEmpty)
+		mGameBoard->removeUnit(4, 9);
 	mGameBoard->addUnit(base, 4, 9);
 	//mGameBoard->_debug_print();
 }

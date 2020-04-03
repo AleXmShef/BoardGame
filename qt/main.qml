@@ -32,6 +32,11 @@ Window {
         visible: false
     }
 
+    NewGameMenu {
+        id: newGameMenu
+        visible: false
+    }
+
     StackView {
         id: mainAppStackView
         initialItem: mainMenu

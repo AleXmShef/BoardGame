@@ -5,23 +5,6 @@ Item {
         id: boardLoader
         asynchronous: true
         anchors.fill: parent
-        onStatusChanged: {
-            if(boardLoader.status === Loader.Loading)
-                loadProgress.visible = true
-            else if(boardLoader.status === Loader.Ready)
-                loadProgress.visible = false
-        }
-    }
-
-
-    Text {
-        id: loadProgress
-        anchors {horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter}
-        text: "Loading"
-        font.pointSize: 32
-        font.bold: true
-        color: "white"
-        visible: false
     }
 
     Text {
@@ -63,8 +46,7 @@ Item {
             onEntered: {parent.color = "orange"}
             onExited: {parent.color = "white"}
             onClicked: {
-                loadProgress.visible = true
-                boardLoader.source = "Board.qml"
+                boardLoader.item.populateBoard(newGameMenu._boardWidth, newGameMenu._boardHeight)
             }
         }
     }
@@ -93,9 +75,14 @@ Item {
         }
     }
 
-    Rectangle {
+    /*Rectangle {
         width: parent.width
         height: 150
         anchors{horizontalCenter: parent.horizontalCenter; bottom: parent.bottom }
+    }*/
+    onVisibleChanged: {
+        if(visible) {
+            boardLoader.source = "Board.qml"
+        }
     }
 }

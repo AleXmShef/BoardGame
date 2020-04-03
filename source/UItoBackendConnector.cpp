@@ -58,8 +58,11 @@ QJsonObject UItoBackendConnector::getBoardUnitAtCell(int x, int y) {
 				{"armor", playable_unit->getStats().armor},
 				{"attack", playable_unit->getStats().attack}
 			};
+			boardUnit.insert("hasStats", 1);
 			boardUnit.insert("stats", stats);
 		}
+		else
+			boardUnit.insert("hasStats", 0);
 		cellObject.insert("board_unit", boardUnit);
 	}
 	else {

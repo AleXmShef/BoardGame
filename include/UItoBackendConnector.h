@@ -19,6 +19,7 @@ public:
 	//Q_INVOKABLE void initBoard(int sizeX, int sizeY, int maxAllowedUnits, QString seed);
 	Q_INVOKABLE QJsonArray initBoard(int sizeX, int sizeY, int maxAllowedUnits);
 	Q_INVOKABLE void action(QJsonObject action);
+
 signals:
 	void boardChanged();
 

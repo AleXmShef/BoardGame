@@ -60,7 +60,10 @@ DISTFILES += \
     qt/BoardCellModel.qml \
     qt/GameMenu.qml \
     qt/MainMenu.qml \
+    qt/MyButton.qml \
+    qt/NewGameMenu.qml \
     qt/SettingsMenu.qml \
+    qt/UnitStats.qml \
     qt/main.qml
 
 HEADERS += \

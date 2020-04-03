@@ -6,6 +6,8 @@ Component {
     Item {
         id: boardCellDelegate
         property bool isSelected: false
+        property var statsRectangle: undefined
+
         function cellOnClicked() {
             if (board.state["invoking_cell"] === "empty" && _pongo_type !== "empty") {
                 board.state["invoking_cell"] = {"x": _x, "y": _y}
@@ -25,6 +27,27 @@ Component {
         }
 
         function cellOnEntered() {
+            if(_pongo_type !== "empty" && !isSelected) {
+                var _width = 130
+                var _height = 70
+                var __x = _x * board.cell_size - (_width - board.cell_size/2)
+                var __y = _y  * board.cell_size - _height
+                var component = Qt.createComponent("UnitStats.qml")
+                var object = component.createObject(boardFrame)
+                object.x = __x
+                object.y = __y
+                object.width = _width
+                object.height = _height
+                if(_hasStats === 1) {
+                    object._health = _health
+                    object._armor = _armor
+                    object._attack = _attack
+                }
+                object._name = _pongo_type
+                statsRectangle = object
+
+            }
+
             if(!isSelected) {
                 background_content.border.color = "red"
                 background_content.border.width = 2
@@ -32,6 +55,10 @@ Component {
         }
 
         function cellOnExited() {
+            if(statsRectangle) {
+                statsRectangle.destroy()
+            }
+
             if(!isSelected) {
                 background_content.border.color = "gray"
                 background_content.border.width = 0.5
