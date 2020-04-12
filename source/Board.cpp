@@ -21,12 +21,14 @@ Board::Board(BoardProperties* properties) : mBoardProperties(properties) {
 			boardArray[i][j].y = i;
 			//auto value = mNoise.normalizedOctaveNoise2D_0_1((double)j/10, (double)i/10, 100);
 			auto value = mNoise.normalizedOctaveNoise2D_0_1((double)j / 10, (double)i / 10, 1000);
-			if(value >= 0.5)
+			if(value >= 0.55)
+				boardArray[i][j].terrainUnit = new Snow();
+			else if (value < 0.55 && value >= 0.4)
 				boardArray[i][j].terrainUnit = new Grass();
 			else
-				boardArray[i][j].terrainUnit = new Snow();
+				boardArray[i][j].terrainUnit = new River();
 
-			if (rand_1(mt_rand) <= (double)mBoardProperties->sizeX * (double)mBoardProperties->sizeY * 0.05 && boardArray[i][j].isEmpty) {
+			if (rand_1(mt_rand) <= (double)mBoardProperties->sizeX * (double)mBoardProperties->sizeY * 0.05 && boardArray[i][j].isEmpty && boardArray[i][j].terrainUnit->getName() != "river") {
 				switch (rand_2(mt_rand)) {
 				case 1:
 					boardArray[i][j].unit = new Stone();
@@ -188,6 +190,9 @@ std::pair<int, int> Board::getUnitCoords(BoardUnit* unit) {
 	return coords;
 }
 
+Board::BoardProperties Board::getBoardProperties() {
+	return *mBoardProperties;
+}
 
 
 

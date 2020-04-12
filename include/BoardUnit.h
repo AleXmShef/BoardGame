@@ -8,6 +8,7 @@ public:
 	struct ActionMeta {
 		BoardUnit* fromUnit = nullptr;
 		BoardUnit* toUnit = nullptr;
+		bool isEmpty = true;
 
 		bool isMove = false;
 		unsigned int moveX = 0;
@@ -27,14 +28,14 @@ public:
 		unsigned int unitY = 0;
 	};
 	BoardUnit();
-	~BoardUnit();
+	virtual ~BoardUnit();
 	virtual BoardUnit* getCopy() = 0;
 	virtual std::vector<ActionMeta> turnAction() = 0;
 	//virtual UnitType getType() = 0;
 	unsigned int getID();
 	virtual std::string getName() = 0;
-private:
 	static unsigned int getUnitCount();
+private:
 	static unsigned int unitCount;
 	static unsigned int idCount;
 	unsigned int _id;

@@ -23,7 +23,8 @@ Component {
                 board.sendAction()
             }
 
-            console.log("Cell " + _x + "," + _y + " " + _terrain_type + " " + _pongo_type + " clicked")
+            if(window._DEBUG_)
+                console.log("Cell " + _x + "," + _y + " " + _terrain_type + " " + _pongo_type + " clicked")
         }
 
         function cellOnEntered() {
@@ -93,6 +94,9 @@ Component {
                         break
                     case "snow":
                         "images/tiles/IceTileset_0" + (Math.floor(Math.random() * (4 - 1)) + 1) + ".png"
+                        break
+                    case "river":
+                        "images/tiles/water_default.png"
                         break
                     default:
                         ""

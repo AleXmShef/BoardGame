@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "Board.h"
+#include "ActionDispatcher.h"
 
 class UItoBackendConnector;
 
@@ -21,6 +22,7 @@ protected:
 	std::vector<std::pair<int, int>> cellsToUpdate;
 	static Game* mInstance;
 	Board* mGameBoard = nullptr;
+	ActionDispatcher* mActionDispatcher = nullptr;
 
 	QGuiApplication* _qApp;
 	QQmlApplicationEngine* _qEngine;

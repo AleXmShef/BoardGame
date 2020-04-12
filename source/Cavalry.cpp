@@ -1,4 +1,6 @@
 #include "Cavalry.h"
+#include "PongoBoardUnit.h"
+#include "PongoBaseBoardUnit.h"
 
 Cavalry::Cavalry(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
 
@@ -12,7 +14,7 @@ std::vector<Cavalry::ActionMeta> Cavalry::turnAction() {
 }
 
 HeavyCavalry::HeavyCavalry(PongoBaseBoardUnit* base) : Cavalry(base) {
-	_stats.health = 10;
+	_stats.health = 30;
 	_stats.armor = 15;
 	_stats.attack = 20;
 }
@@ -20,10 +22,22 @@ HeavyCavalry::HeavyCavalry(PongoBaseBoardUnit* base) : Cavalry(base) {
 std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::userAction(Board::BoardCell targetCell, int action) {
 	std::vector<HeavyCavalry::ActionMeta> actionVec;
 	ActionMeta meta;
+	meta.fromUnit = this;
 	if (targetCell.isEmpty && targetCell.terrainUnit->isPassable()) {
+		meta.isEmpty = false;
 		meta.isMove = true;
 		meta.moveX = targetCell.x;
 		meta.moveY = targetCell.y;
+	}
+	else if (!targetCell.isEmpty) {
+		auto targetUnit = dynamic_cast<PongoBoardUnit*>(targetCell.unit);
+		if (targetUnit != nullptr) {
+			meta.isEmpty = false;
+			meta.toUnit = targetCell.unit;
+			meta.isAttack = true;
+			meta.hpAttack = _stats.attack;
+			meta.armorAttack = (int)_stats.attack/3;
+		}
 	}
 	actionVec.push_back(meta);
 	return actionVec;
@@ -31,10 +45,19 @@ std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::userAction(Board::BoardCell 
 	return actionVec;
 }
 
-std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::defend(HeavyCavalry::ActionMeta) {
+std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::defend(HeavyCavalry::ActionMeta meta) {
+	if (meta.isAttack) {
+		_stats.health -= meta.hpAttack;
+		if (_stats.health <= 0) {
+			_base->unitDeathHook(this);
+		}
+		_stats.armor -= meta.armorAttack;
+		if (_stats.armor <= 0)
+			_stats.armor = 0;
+	}
 	std::vector<HeavyCavalry::ActionMeta> actionVec;
-	ActionMeta meta;
-	actionVec.push_back(meta);
+	ActionMeta defendMeta;
+	actionVec.push_back(defendMeta);
 	return actionVec;
 }
 

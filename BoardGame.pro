@@ -14,6 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        source/ActionDispatcher.cpp \
         source/Artillery.cpp \
         source/Board.cpp \
         source/BoardUnit.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
         source/PlayableBoardUnit.cpp \
         source/PongoBaseBoardUnit.cpp \
         source/PongoBoardUnit.cpp \
+        source/River.cpp \
         source/Snow.cpp \
         source/Stone.cpp \
         source/TerrainBoardUnit.cpp \
@@ -67,6 +69,7 @@ DISTFILES += \
     qt/main.qml
 
 HEADERS += \
+    include/ActionDispatcher.h \
     include/Artillery.h \
     include/Board.h \
     include/BoardUnit.h \
@@ -78,6 +81,7 @@ HEADERS += \
     include/PlayableBoardUnit.h \
     include/PongoBaseBoardUnit.h \
     include/PongoBoardUnit.h \
+    include/River.h \
     include/Snow.h \
     include/Stone.h \
     include/TerrainBoardUnit.h \

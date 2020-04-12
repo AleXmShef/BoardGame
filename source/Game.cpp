@@ -3,6 +3,7 @@
 #include <QDebug>
 #include "UItoBackendConnector.h"
 #include "PongoBaseBoardUnit.h"
+#include "ActionDispatcher.h"
 
 Game* Game::mInstance = nullptr;
 
@@ -48,6 +49,7 @@ void Game::initBoard(int sizeX, int sizeY, int maxAllowedUnits) {
 	boardProp->sizeY = sizeY;
 	boardProp->maxAllowedUnits = maxAllowedUnits;
 	mGameBoard = new Board(boardProp);
+	mActionDispatcher = new ActionDispatcher(mGameBoard);
 	auto base = new PongoBaseBoardUnit();
 	if (!mGameBoard->getCellAt(4, 9).isEmpty)
 		mGameBoard->removeUnit(4, 9);
@@ -63,14 +65,18 @@ void Game::playerAction(Board::BoardCell fromCell, Board::BoardCell toCell, int 
 	auto unit = dynamic_cast<PlayableBoardUnit*>(fromCell.unit);
 	if (unit != nullptr) {
 		auto metaVec = unit->userAction(toCell, actionID);
-		auto meta = metaVec[0];
+		/*auto meta = metaVec[0];
 		if (meta.isCreate) {
 			mGameBoard->addUnit(meta.createdUnit, meta.unitX, meta.unitY);
 		}
 		if (meta.isMove) {
 			mGameBoard->moveUnit(unit, meta.moveX, meta.moveY);
-		}
+		}*/
+		for (int i = 0; i < metaVec.size(); i++)
+			mActionDispatcher->push_back(metaVec[i]);
+		mActionDispatcher->flush();
 	}
+	qInfo() << "Total pongo unit count:" << PongoBoardUnit::getUnitCount();
 	cellsToUpdate.push_back(std::pair<int, int>(fromCell.x, fromCell.y));
 	cellsToUpdate.push_back(std::pair<int, int>(toCell.x, toCell.y));
 }
