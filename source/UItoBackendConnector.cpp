@@ -75,12 +75,23 @@ QJsonObject UItoBackendConnector::getBoardUnitAtCell(int x, int y) {
 
 QJsonArray UItoBackendConnector::getUpdatedCells() {
 	auto arr = mGame->getCellsToUpdate();
-	QJsonArray cells;
-	for (int i = 0; i < arr.size(); i++) {
-		auto cellObject = getBoardUnitAtCell(arr[i].first, arr[i].second);
-		cells.append(cellObject);
+	QJsonArray actions;
+	for (int i = 0; i < arr->size(); i++) {
+		auto action = (*arr)[i];
+		auto fromCellObject = getBoardUnitAtCell(action.fromCell.first, action.fromCell.second);
+		QJsonObject actionObject;
+		actionObject.insert("fromCell", fromCellObject);
+		if (action.actionType != "empty") {
+			auto toCellObject = getBoardUnitAtCell(action.toCell.first, action.toCell.second);
+			actionObject.insert("toCell", toCellObject);
+			actionObject.insert("actionType", action.actionType.c_str());
+		}
+		else {
+			actionObject.insert("actionType", "empty");
+		}
+		actions.append(actionObject);
 	}
-	return cells;
+	return actions;
 }
 
 void UItoBackendConnector::action(QJsonObject action) {

@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import QtQuick 2.0
 import QtQuick.Window 2.14
 import QtQuick.Controls 2.0
 import QtGraphicalEffects 1.12
@@ -21,7 +20,6 @@ Item {
     function populateBoard(x, y) {
         size_x = x
         size_y = y
-        console.log("abcdefg")
         UIConnector.initBoard(size_x, size_y, 10)
         for (let i = 0; i < board.size_y; i++) {
             for (let j = 0; j < board.size_x; j++) {
@@ -53,30 +51,73 @@ Item {
             updateBoard()
         }
     }
+    function updateCell(cell) {
+        var index = (cell["x"] + cell["y"]*board.size_x)
+        var mcell = boardCellModel.get(index)
+        mcell._terrain_type = cell["terrain_unit"]["name"]
+        mcell._pongo_type = cell["board_unit"]["name"]
+        if(cell["board_unit"]["name"] !== "empty" && cell["board_unit"]["hasStats"] === 1) {
+          mcell._hasStats = 1
+          mcell._health = cell["board_unit"]["stats"]["health"]
+          mcell._armor = cell["board_unit"]["stats"]["armor"]
+          mcell._attack = cell["board_unit"]["stats"]["attack"]
+        }
+        else {
+          mcell._hasStats = 0
+          mcell._health = 0
+          mcell._armor = 0
+          mcell._attack = 0
+        }
+        var bcell = boardGrid.itemAtIndex(index)
+        bcell.isSelected = false
+    }
+
+    function animateMove(fromCell, toCell) {
+        var fromIndex = (fromCell.x + fromCell.y*board.size_x)
+        var fromCellModel = boardCellModel.get(fromIndex)
+        var toIndex = (toCell.x + toCell.y*board.size_x)
+        var toCellModel = boardCellModel.get(toIndex)
+        var fromCellItem = boardGrid.itemAtIndex(fromIndex)
+        var str1 = "import QtQuick 2.14;Image {id:animImg; property var callback: null; smooth: false; height: "
+        str1 += cell_size
+        str1 += ";width: "
+        str1 += cell_size
+        str1 += ";source:"
+        str1 += "'/images/units/light_cavalry_01.png'"
+        str1 += "; Behavior on x {PropertyAnimation{id: xAnim; duration: 500; easing.type: Easing.InOutQuad; onRunningChanged: {if(!running){ callback();animImg.destroy()}}}} Behavior on y {PropertyAnimation{duration: 500; easing.type: Easing.InOutQuad;onRunningChanged: {if(!running){ callback();animImg.destroy()}}}}x:"
+        var abr = fromCell.x * cell_size
+        str1 += abr
+        str1 += ";y:"
+        abr = fromCell.y * cell_size
+        str1 += abr
+        str1 += ";z:20"
+        str1 += "}"
+        var animatedImage = Qt.createQmlObject(str1,
+        boardFrame, "something")
+        animatedImage.callback = function() {
+            updateCell(toCell)
+        }
+
+        animatedImage.x = toCell.x * cell_size
+        animatedImage.y = toCell.y * cell_size
+    }
 
     function updateBoard() {
-        var cells = UIConnector.getUpdatedCells()
-        cells.forEach(cell => {
-                          var index = (cell["x"] + cell["y"]*board.size_x)
-                          var mcell = boardCellModel.get(index)
-                          mcell._terrain_type = cell["terrain_unit"]["name"]
-                          mcell._pongo_type = cell["board_unit"]["name"]
-                          if(cell["board_unit"]["name"] !== "empty" && cell["board_unit"]["hasStats"] === 1) {
-                              mcell._hasStats = 1
-                              mcell._health = cell["board_unit"]["stats"]["health"]
-                              mcell._armor = cell["board_unit"]["stats"]["armor"]
-                              mcell._attack = cell["board_unit"]["stats"]["attack"]
-                          }
-                          else {
-                              mcell._hasStats = 0
-                              mcell._health = 0
-                              mcell._armor = 0
-                              mcell._attack = 0
-                          }
-                          var bcell = boardGrid.itemAtIndex(index)
-                          bcell.isSelected = false
-                      }
-                    )
+        var actions = UIConnector.getUpdatedCells()
+        actions.forEach(action => {
+            var actionType = action.actionType
+            if(actionType !== "empty") {
+                var fromCell = action.fromCell
+                var toCell = action.toCell
+                updateCell(fromCell)
+                if(actionType === "move") {
+                    animateMove(fromCell, toCell)
+                }
+                else
+                    updateCell(toCell)
+            }
+          }
+        )
     }
 
     function sendAction() {

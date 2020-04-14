@@ -77,6 +77,7 @@ void Board::removeUnit(unsigned int x, unsigned int y) {
 	}
 	tCell->isEmpty = true;
 	tCell->unit = nullptr;
+	unitCount--;
 }
 
 void Board::removeUnit(BoardUnit* unit) {

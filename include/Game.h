@@ -16,10 +16,10 @@ public:
 	int Start();
 	void _debug_demo();
 	void playerAction(Board::BoardCell fromCell, Board::BoardCell toCell, int actionID = -1);
-	std::vector<std::pair<int, int>> getCellsToUpdate();
+	std::vector<ActionDispatcher::Action>* getCellsToUpdate();
 	//void userAction(Board::BoardCell invokingCell, Board::BoardCell targetCell, int actionID = -1);
 protected:
-	std::vector<std::pair<int, int>> cellsToUpdate;
+	std::vector<ActionDispatcher::Action>* changedCells = nullptr;
 	static Game* mInstance;
 	Board* mGameBoard = nullptr;
 	ActionDispatcher* mActionDispatcher = nullptr;

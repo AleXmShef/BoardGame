@@ -4,7 +4,6 @@
 class BoardUnit
 {
 public:
-	enum class UnitType{Pongo, Base, Terrain, Misc};
 	struct ActionMeta {
 		BoardUnit* fromUnit = nullptr;
 		BoardUnit* toUnit = nullptr;

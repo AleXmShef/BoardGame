@@ -54,6 +54,7 @@ void Game::initBoard(int sizeX, int sizeY, int maxAllowedUnits) {
 	if (!mGameBoard->getCellAt(4, 9).isEmpty)
 		mGameBoard->removeUnit(4, 9);
 	mGameBoard->addUnit(base, 4, 9);
+	changedCells = new std::vector<ActionDispatcher::Action>;
 	//mGameBoard->_debug_print();
 }
 
@@ -63,26 +64,18 @@ Board* Game::getBoard() {
 
 void Game::playerAction(Board::BoardCell fromCell, Board::BoardCell toCell, int actionID) {
 	auto unit = dynamic_cast<PlayableBoardUnit*>(fromCell.unit);
+	changedCells->clear();
 	if (unit != nullptr) {
 		auto metaVec = unit->userAction(toCell, actionID);
-		/*auto meta = metaVec[0];
-		if (meta.isCreate) {
-			mGameBoard->addUnit(meta.createdUnit, meta.unitX, meta.unitY);
-		}
-		if (meta.isMove) {
-			mGameBoard->moveUnit(unit, meta.moveX, meta.moveY);
-		}*/
 		for (int i = 0; i < metaVec.size(); i++)
 			mActionDispatcher->push_back(metaVec[i]);
-		mActionDispatcher->flush();
+		changedCells = mActionDispatcher->flush();
 	}
 	qInfo() << "Total pongo unit count:" << PongoBoardUnit::getUnitCount();
-	cellsToUpdate.push_back(std::pair<int, int>(fromCell.x, fromCell.y));
-	cellsToUpdate.push_back(std::pair<int, int>(toCell.x, toCell.y));
 }
 
-std::vector<std::pair<int, int>> Game::getCellsToUpdate() {
-	return cellsToUpdate;
+std::vector<ActionDispatcher::Action>* Game::getCellsToUpdate() {
+	return changedCells;
 }
 
 

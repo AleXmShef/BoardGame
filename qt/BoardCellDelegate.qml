@@ -7,6 +7,7 @@ Component {
         id: boardCellDelegate
         property bool isSelected: false
         property var statsRectangle: undefined
+        property alias imagePath: unit_img.source
 
         function cellOnClicked() {
             if (board.state["invoking_cell"] === "empty" && _pongo_type !== "empty") {
@@ -18,7 +19,7 @@ Component {
                 board.state = {"invoking_cell": "empty", "target_cell": "empty"}
             }
 
-            else {
+            else if (board.state.invoking_cell !== "empty"){
                 board.state["target_cell"] = {"x": _x, "y": _y}
                 board.sendAction()
             }

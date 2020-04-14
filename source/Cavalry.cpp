@@ -1,6 +1,7 @@
 #include "Cavalry.h"
 #include "PongoBoardUnit.h"
 #include "PongoBaseBoardUnit.h"
+#include "Game.h"
 
 Cavalry::Cavalry(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
 
