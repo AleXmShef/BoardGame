@@ -2,9 +2,15 @@
 #include "PongoBoardUnit.h"
 #include "PongoBaseBoardUnit.h"
 #include "Game.h"
+#include <QDebug>
+#include "Logger.h"
 
 Cavalry::Cavalry(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
 
+}
+
+std::string Cavalry::getClassName() {
+	return "cavalry";
 }
 
 std::vector<Cavalry::ActionMeta> Cavalry::turnAction() {
@@ -18,30 +24,31 @@ HeavyCavalry::HeavyCavalry(PongoBaseBoardUnit* base) : Cavalry(base) {
 	_stats.health = 30;
 	_stats.armor = 15;
 	_stats.attack = 20;
+	_stats.action_radius = 3;
 }
 
 std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::userAction(Board::BoardCell targetCell, int action) {
 	std::vector<HeavyCavalry::ActionMeta> actionVec;
 	ActionMeta meta;
 	meta.fromUnit = this;
-	if (targetCell.isEmpty && targetCell.terrainUnit->isPassable()) {
-		meta.isEmpty = false;
-		meta.isMove = true;
-		meta.moveX = targetCell.x;
-		meta.moveY = targetCell.y;
-	}
-	else if (!targetCell.isEmpty) {
-		auto targetUnit = dynamic_cast<PongoBoardUnit*>(targetCell.unit);
-		if (targetUnit != nullptr) {
+	if (checkForActionRadius(Game::getInstance()->getBoard()->getUnitCoords(targetCell.terrainUnit))) {
+		if (targetCell.isEmpty && targetCell.terrainUnit->isPassable()) {
 			meta.isEmpty = false;
-			meta.toUnit = targetCell.unit;
-			meta.isAttack = true;
-			meta.hpAttack = _stats.attack;
-			meta.armorAttack = (int)_stats.attack/3;
+			meta.isMove = true;
+			meta.moveX = targetCell.x;
+			meta.moveY = targetCell.y;
+		}
+		else if (!targetCell.isEmpty) {
+			auto targetUnit = dynamic_cast<PongoBoardUnit*>(targetCell.unit);
+			if (targetUnit != nullptr) {
+				meta.isEmpty = false;
+				meta.toUnit = targetCell.unit;
+				meta.isAttack = true;
+				meta.hpAttack = _stats.attack;
+				meta.armorAttack = (int)_stats.attack / 3;
+			}
 		}
 	}
-	actionVec.push_back(meta);
-	return actionVec;
 	actionVec.push_back(meta);
 	return actionVec;
 }
@@ -50,6 +57,7 @@ std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::defend(HeavyCavalry::ActionM
 	if (meta.isAttack) {
 		_stats.health -= meta.hpAttack;
 		if (_stats.health <= 0) {
+			Logger::log("PongoBaseBoardUnit", "0 HP, destroyed", 3);
 			_base->unitDeathHook(this);
 		}
 		_stats.armor -= meta.armorAttack;
@@ -60,10 +68,6 @@ std::vector<HeavyCavalry::ActionMeta> HeavyCavalry::defend(HeavyCavalry::ActionM
 	ActionMeta defendMeta;
 	actionVec.push_back(defendMeta);
 	return actionVec;
-}
-
-BoardUnit* HeavyCavalry::getCopy() {
-	return nullptr;
 }
 
 std::string HeavyCavalry::getName() {
@@ -95,10 +99,6 @@ std::vector<LightCavalry::ActionMeta> LightCavalry::defend(LightCavalry::ActionM
 	return actionVec;
 }
 
-BoardUnit* LightCavalry::getCopy() {
-	return nullptr;
-}
-
 std::string LightCavalry::getName() {
 	return "light_cavalry";
 }
@@ -117,4 +117,16 @@ PlayableBoardUnit* CavalryFactory::createUnit(int type) {
 		return nullptr;
 		break;
 	}
+}
+
+PlayableBoardUnit* CavalryFactory::createUnit(QJsonObject snapshot) {
+	auto type = snapshot["subtype"].toString();
+	if (type == "heavy_cavalry") {
+		auto unit = (PlayableBoardUnit*)(new HeavyCavalry(snapshot, _base));
+		return unit;
+	}
+	else if (type == "light_cavalry")
+		return (PlayableBoardUnit*)(new LightCavalry(snapshot, _base));
+	else
+		return nullptr;
 }

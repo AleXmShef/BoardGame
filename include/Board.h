@@ -1,4 +1,7 @@
 #pragma once
+#include <QJsonArray>
+#include <QJsonObject>
+
 #include "BoardUnit.h"
 #include "TerrainBoardUnit.h"
 #include "Grass.h"
@@ -11,20 +14,20 @@ class Board
 {
 public:
 	struct BoardProperties {
-		unsigned int maxAllowedUnits = 0;
-		unsigned int sizeX = 0;
-		unsigned int sizeY = 0;
+		int maxAllowedUnits = 0;
+		int sizeX = 0;
+		int sizeY = 0;
 	};
 	struct BoardCell {
 		bool isEmpty = true;
 		BoardUnit* unit = nullptr;
 		TerrainBoardUnit* terrainUnit = nullptr;
-		unsigned int x;
-		unsigned int y;
+		int x;
+		int y;
 	};
 public:
 	Board(BoardProperties* properties);
-	Board(Board& board);
+	Board(QJsonObject snapshot);
 	void addUnit(BoardUnit* newUnit, unsigned int x, unsigned int y);
 	void removeUnit(unsigned int x, unsigned int y);
 	void removeUnit(BoardUnit* unit);
@@ -32,6 +35,8 @@ public:
 	void moveUnit(unsigned int current_x, unsigned int current_y, unsigned int intended_x, unsigned int intended_y);
 	std::pair<int, int> getUnitCoords(BoardUnit* unit);
 	BoardProperties getBoardProperties();
+	QJsonObject getSnapshot();
+
 	void _debug_print();
 
 	BoardUnit* operator()(unsigned int x, unsigned int y);

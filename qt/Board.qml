@@ -16,15 +16,27 @@ Item {
     property real transformScale: 1
     property real transformOriginX: 0
     property real transformOriginY: 0
+	property var currentUser: ""
     transform: Scale {origin.x: transformOriginX; origin.y: transformOriginY; xScale: transformScale; yScale: transformScale}
+
+    function changeVisibility(mode) {
+        if(mode)
+            boardFrame.visible = true
+        else
+            boardFrame.visible = false
+    }
+
     function populateBoard(x, y) {
+        changeVisibility(false)
+        boardCellModel.clear()
         size_x = x
         size_y = y
-        UIConnector.initBoard(size_x, size_y, 10)
+        var data = UIConnector.initBoard(size_x, size_y, 10)
+		board.currentUser = data.currentUser
         for (let i = 0; i < board.size_y; i++) {
             for (let j = 0; j < board.size_x; j++) {
                 var cell = UIConnector.getBoardUnitAtCell(j, i)
-                var dict = {"_x": j, "_y": i, "_terrain_type": cell["terrain_unit"]["name"], "_pongo_type": cell["board_unit"]["name"]}
+                var dict = {"_x": j, "_y": i, "_terrain_type": cell["terrain_unit"]["name"], "_pongo_type": cell["board_unit"]["name"], "_user": cell["board_unit"]["user"]}
                 if(cell["board_unit"]["hasStats"] === 1) {
                     dict["_hasStats"] = 1
                     dict["_health"] = cell["board_unit"]["stats"]["health"]
@@ -41,7 +53,38 @@ Item {
                 boardCellModel.append(dict)
             }
         }
-        boardFrame.visible = true
+        changeVisibility(true)
+        console.log("cells: " + boardGrid.count)
+    }
+
+    function loadBoard(sizeX, sizeY) {
+        changeVisibility(false)
+
+        size_y = sizeY
+        size_x = sizeX
+        boardCellModel.clear()
+
+        for (let i = 0; i < board.size_y; i++) {
+            for (let j = 0; j < board.size_x; j++) {
+                var cell = UIConnector.getBoardUnitAtCell(j, i)
+                var dict = {"_x": j, "_y": i, "_terrain_type": cell["terrain_unit"]["name"], "_pongo_type": cell["board_unit"]["name"], "_user": cell["board_unit"]["user"]}
+                if(cell["board_unit"]["hasStats"] === 1) {
+                    dict["_hasStats"] = 1
+                    dict["_health"] = cell["board_unit"]["stats"]["health"]
+                    dict["_armor"] = cell["board_unit"]["stats"]["armor"]
+                    dict["_attack"] = cell["board_unit"]["stats"]["attack"]
+                }
+                else {
+                    dict["_hasStats"] = 0
+                    dict["_health"] = 0
+                    dict["_armor"] = 0
+                    dict["_attack"] = 0
+                }
+
+                boardCellModel.append(dict)
+            }
+        }
+        changeVisibility(true)
         console.log("cells: " + boardGrid.count)
     }
 
@@ -61,6 +104,7 @@ Item {
           mcell._health = cell["board_unit"]["stats"]["health"]
           mcell._armor = cell["board_unit"]["stats"]["armor"]
           mcell._attack = cell["board_unit"]["stats"]["attack"]
+		  mcell._user = cell.board_unit.user
         }
         else {
           mcell._hasStats = 0
@@ -103,7 +147,9 @@ Item {
     }
 
     function updateBoard() {
-        var actions = UIConnector.getUpdatedCells()
+        var data = UIConnector.getUpdatedCells()
+		var actions = data.updatedCells
+		board.currentUser = data.newCurrentUser
         actions.forEach(action => {
             var actionType = action.actionType
             if(actionType !== "empty") {
@@ -118,6 +164,7 @@ Item {
             }
           }
         )
+		console.log(board.currentUser)
     }
 
     function sendAction() {
@@ -126,6 +173,10 @@ Item {
         var bcell = boardGrid.itemAtIndex(index)
         bcell.isSelected = false
         board.state = {"invoking_cell": "empty", "target_cell": "empty"}
+    }
+	
+	function checkAction(action) {
+        return UIConnector.checkUnitAction(action)
     }
 
     Rectangle {
@@ -170,10 +221,5 @@ Item {
                 board.transformScale += wheel.angleDelta.y/900
         }
 
-    }
-    Component.onCompleted: {
-        loaded()
-        console.log("wtf")
-        //board.populateBoard()
     }
 }

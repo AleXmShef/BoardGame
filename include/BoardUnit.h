@@ -1,4 +1,5 @@
 #pragma once
+#include <QJsonObject>
 #include <vector>
 #include <string>
 class BoardUnit
@@ -28,12 +29,13 @@ public:
 	};
 	BoardUnit();
 	virtual ~BoardUnit();
-	virtual BoardUnit* getCopy() = 0;
+	virtual QJsonObject getSnapshot() = 0;
 	virtual std::vector<ActionMeta> turnAction() = 0;
 	//virtual UnitType getType() = 0;
 	unsigned int getID();
 	virtual std::string getName() = 0;
 	static unsigned int getUnitCount();
+	static void resetUnitCount() { unitCount = 0; };
 private:
 	static unsigned int unitCount;
 	static unsigned int idCount;

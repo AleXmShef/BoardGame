@@ -23,6 +23,7 @@ SOURCES += \
         source/Game.cpp \
         source/Grass.cpp \
         source/Infantry.cpp \
+        source/NeutralBoardUnit.cpp \
         source/PlayableBoardUnit.cpp \
         source/PongoBaseBoardUnit.cpp \
         source/PongoBoardUnit.cpp \
@@ -64,6 +65,7 @@ DISTFILES += \
     qt/MainMenu.qml \
     qt/MyButton.qml \
     qt/NewGameMenu.qml \
+    qt/SaveWindow.qml \
     qt/SettingsMenu.qml \
     qt/UnitStats.qml \
     qt/main.qml
@@ -78,6 +80,7 @@ HEADERS += \
     include/Game.h \
     include/Grass.h \
     include/Infantry.h \
+    include/NeutralBoardUnit.h \
     include/PlayableBoardUnit.h \
     include/PongoBaseBoardUnit.h \
     include/PongoBoardUnit.h \

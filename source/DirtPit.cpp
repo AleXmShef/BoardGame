@@ -10,7 +10,3 @@ std::vector<DirtPit::ActionMeta> DirtPit::turnAction() {
 	actionVec.push_back(meta);
 	return actionVec;
 }
-
-BoardUnit* DirtPit::getCopy() {
-	return new DirtPit();
-}

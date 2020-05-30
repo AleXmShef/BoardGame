@@ -10,7 +10,3 @@ std::vector<TreeLog::ActionMeta> TreeLog::turnAction() {
 	actionVec.push_back(meta);
 	return actionVec;
 }
-
-BoardUnit* TreeLog::getCopy() {
-	return new TreeLog();
-}

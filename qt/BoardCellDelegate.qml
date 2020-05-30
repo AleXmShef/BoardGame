@@ -10,7 +10,7 @@ Component {
         property alias imagePath: unit_img.source
 
         function cellOnClicked() {
-            if (board.state["invoking_cell"] === "empty" && _pongo_type !== "empty") {
+            if (board.state["invoking_cell"] === "empty" && _pongo_type !== "empty" && _user == board.currentUser) {
                 board.state["invoking_cell"] = {"x": _x, "y": _y}
                 isSelected = true
             }
@@ -20,8 +20,13 @@ Component {
             }
 
             else if (board.state.invoking_cell !== "empty"){
-                board.state["target_cell"] = {"x": _x, "y": _y}
-                board.sendAction()
+				var action = board.state
+                action.target_cell = {"x": _x, "y": _y}
+				var _action = board.checkAction(action)
+				if(_action.actionType !== "empty") {
+					board.state["target_cell"] = {"x": _x, "y": _y}
+					board.sendAction()
+				}
             }
 
             if(window._DEBUG_)
@@ -47,11 +52,19 @@ Component {
                 }
                 object._name = _pongo_type
                 statsRectangle = object
-
+                background_content.border.color = "blue"
+                background_content.border.width = 2
             }
 
-            if(!isSelected) {
-                background_content.border.color = "red"
+            if(!isSelected && board.state.invoking_cell !== "empty") {
+                var action = board.state
+                action.target_cell = {"x": _x, "y": _y}
+                var _action = board.checkAction(action)
+                if(_action.actionType !== "empty")
+                    background_content.border.color = "blue"
+                else
+                    background_content.border.color = "red"
+
                 background_content.border.width = 2
             }
         }

@@ -33,5 +33,8 @@
         <file>NewGameMenu.qml</file>
         <file>../images/assets/triangle_button.png</file>
         <file>../images/assets/triangle_button_selected.png</file>
+        <file>SaveWindow.qml</file>
+        <file>../images/assets/folder_icon.png</file>
+        <file>../images/assets/folder_icon_selected.png</file>
     </qresource>
 </RCC>

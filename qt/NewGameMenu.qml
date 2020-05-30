@@ -6,7 +6,6 @@ import QtQuick.Layouts 1.14
 import QtQuick.Shapes 1.12
 
 Item {
-    id: newGameMenu
     anchors.fill: parent
     property alias _boardHeight: boardHeight.text
     property alias _boardWidth: boardWidth.text

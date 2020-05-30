@@ -10,7 +10,3 @@ std::vector<Tree::ActionMeta> Tree::turnAction() {
 	actionVec.push_back(meta);
 	return actionVec;
 }
-
-BoardUnit* Tree::getCopy() {
-	return new Tree();
-}

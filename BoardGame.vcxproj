@@ -200,9 +200,15 @@
     <ClCompile Include="source/UItoBackendConnector.cpp" />
     <ClCompile Include="source\ActionDispatcher.cpp" />
     <ClCompile Include="source\DirtPit.cpp" />
+    <ClCompile Include="source\GameRules.cpp" />
+    <ClCompile Include="source\GameRulesClassic.cpp" />
+    <ClCompile Include="source\GameRulesRandom.cpp" />
+    <ClCompile Include="source\Logger.cpp" />
+    <ClCompile Include="source\NeutralBoardUnit.cpp" />
     <ClCompile Include="source\Stone.cpp" />
     <ClCompile Include="source\Tree.cpp" />
     <ClCompile Include="source\TreeLog.cpp" />
+    <ClCompile Include="source\User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -248,9 +254,15 @@
     <ClInclude Include="include/PongoBaseBoardUnit.h" />
     <ClInclude Include="include\ActionDispatcher.h" />
     <ClInclude Include="include\DirtPit.h" />
+    <ClInclude Include="include\GameRules.h" />
+    <ClInclude Include="include\GameRulesClassic.h" />
+    <ClInclude Include="include\GameRulesRandom.h" />
+    <ClInclude Include="include\Logger.h" />
+    <ClInclude Include="include\NeutralBoardUnit.h" />
     <ClInclude Include="include\Stone.h" />
     <ClInclude Include="include\Tree.h" />
     <ClInclude Include="include\TreeLog.h" />
+    <ClInclude Include="include\User.h" />
     <QtMoc Include="include/UItoBackendConnector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,7 +10,3 @@ std::vector<Stone::ActionMeta> Stone::turnAction() {
 	actionVec.push_back(meta);
 	return actionVec;
 }
-
-BoardUnit* Stone::getCopy() {
-	return new Stone();
-}

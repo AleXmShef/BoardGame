@@ -4,6 +4,10 @@ Infantry::Infantry(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
 
 }
 
+std::string Infantry::getClassName() {
+	return "infantry";
+}
+
 std::vector<Infantry::ActionMeta> Infantry::turnAction() {
 	std::vector<Infantry::ActionMeta> actionVec;
 	ActionMeta meta;
@@ -31,10 +35,6 @@ std::vector<Swordsman::ActionMeta> Swordsman::defend(Swordsman::ActionMeta) {
 	return actionVec;
 }
 
-BoardUnit* Swordsman::getCopy() {
-	return nullptr;
-}
-
 std::string Swordsman::getName() {
 	return "swordsman";
 }
@@ -59,10 +59,6 @@ std::vector<Spearman::ActionMeta> Spearman::defend(Spearman::ActionMeta) {
 	return actionVec;
 }
 
-BoardUnit* Spearman::getCopy() {
-	return nullptr;
-}
-
 std::string Spearman::getName() {
 	return "spearman";
 }
@@ -81,5 +77,15 @@ PlayableBoardUnit* InfantryFactory::createUnit(int type) {
 		return nullptr;
 		break;
 	}
+}
+
+PlayableBoardUnit* InfantryFactory::createUnit(QJsonObject snapshot) {
+	auto type = snapshot["subtype"];
+	if (type == "spearman")
+		return (PlayableBoardUnit*)(new Spearman(snapshot, _base));
+	else if (type == "swordsman")
+		return (PlayableBoardUnit*)(new Swordsman(snapshot, _base));
+	else
+		return nullptr;
 }
 

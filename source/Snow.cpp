@@ -4,10 +4,6 @@ bool Snow::isPassable() {
 	return true;
 }
 
-BoardUnit* Snow::getCopy() {
-	return new Snow();
-}
-
 std::vector<Snow::ActionMeta> Snow::turnAction() {
 	std::vector<Snow::ActionMeta> actionVec;
 	ActionMeta meta;

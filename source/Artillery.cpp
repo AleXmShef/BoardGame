@@ -4,6 +4,10 @@ Artillery::Artillery(PongoBaseBoardUnit* base) : PongoBoardUnit(base) {
 
 }
 
+std::string Artillery::getClassName() {
+	return "artillery";
+}
+
 std::vector<Artillery::ActionMeta> Artillery::turnAction() {
 	std::vector<Cannon::ActionMeta> actionVec;
 	ActionMeta meta;
@@ -31,10 +35,6 @@ std::vector<Cannon::ActionMeta> Cannon::defend(Cannon::ActionMeta) {
 	return actionVec;
 }
 
-BoardUnit* Cannon::getCopy() {
-	return nullptr;
-}
-
 std::string Cannon::getName() {
 	return "cannon";
 }
@@ -59,10 +59,6 @@ std::vector<Cannon::ActionMeta> Catapult::defend(Catapult::ActionMeta) {
 	return actionVec;
 }
 
-BoardUnit* Catapult::getCopy() {
-	return nullptr;
-}
-
 std::string Catapult::getName() {
 	return "catapult";
 }
@@ -81,4 +77,14 @@ PlayableBoardUnit* ArtilleryFactory::createUnit(int type) {
 		return nullptr;
 		break;
 	}
+}
+
+PlayableBoardUnit* ArtilleryFactory::createUnit(QJsonObject snapshot) {
+	auto type = snapshot["subtype"];
+	if (type == "cannon")
+		return (PlayableBoardUnit*)(new Cannon(snapshot, _base));
+	else if (type == "catapult")
+		return (PlayableBoardUnit*)(new Catapult(snapshot, _base));
+	else
+		return nullptr;
 }

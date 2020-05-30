@@ -1,6 +1,7 @@
 #include "UItoBackendConnector.h"
 #include "PlayableBoardUnit.h"
 #include <QDebug>
+#include "Logger.h"
 
 UItoBackendConnector* UItoBackendConnector::mInstance = nullptr;
 
@@ -21,8 +22,12 @@ UItoBackendConnector* UItoBackendConnector::getInstance() {
 	return mInstance;
 }
 
-QJsonArray UItoBackendConnector::initBoard(int sizeX, int sizeY, int maxAllowedUnits) {
-	mGame->initBoard(sizeX, sizeY, maxAllowedUnits);
+QJsonObject UItoBackendConnector::initBoard(int sizeX, int sizeY, int maxAllowedUnits) {
+	std::vector<std::string> users;
+	users.push_back("Player 1");
+	users.push_back("Player 2");
+	mGame->initGame(0, users, sizeX, sizeY, maxAllowedUnits);
+	QJsonObject data;
 	QJsonArray arr;
 	for (int i = 0; i < sizeY; i++) {
 		QJsonArray tarr;
@@ -39,7 +44,9 @@ QJsonArray UItoBackendConnector::initBoard(int sizeX, int sizeY, int maxAllowedU
 		}
 		arr.append(tarr);
 	}
-	return arr;
+	data.insert("currentUser", mGame->getCurrentUser()->getName().c_str());
+	data.insert("board", arr);
+	return data;
 }
 
 QJsonObject UItoBackendConnector::getBoardUnitAtCell(int x, int y) {
@@ -60,9 +67,20 @@ QJsonObject UItoBackendConnector::getBoardUnitAtCell(int x, int y) {
 			};
 			boardUnit.insert("hasStats", 1);
 			boardUnit.insert("stats", stats);
+			
+			
 		}
 		else
 			boardUnit.insert("hasStats", 0);
+
+		auto base_unit = dynamic_cast<PongoBaseBoardUnit*>(cell.unit);
+		auto pongo_unit = dynamic_cast<PongoBoardUnit*>(cell.unit);
+		if (base_unit != nullptr)
+			boardUnit.insert("user", base_unit->getUser()->getName().c_str());
+		else if (pongo_unit != nullptr)
+			boardUnit.insert("user", pongo_unit->getUser()->getName().c_str());
+		else
+			boardUnit.insert("user", "empty");
 		cellObject.insert("board_unit", boardUnit);
 	}
 	else {
@@ -73,9 +91,10 @@ QJsonObject UItoBackendConnector::getBoardUnitAtCell(int x, int y) {
 	return cellObject;
 }
 
-QJsonArray UItoBackendConnector::getUpdatedCells() {
+QJsonObject UItoBackendConnector::getUpdatedCells() {
 	auto arr = mGame->getCellsToUpdate();
 	QJsonArray actions;
+	QJsonObject data;
 	for (int i = 0; i < arr->size(); i++) {
 		auto action = (*arr)[i];
 		auto fromCellObject = getBoardUnitAtCell(action.fromCell.first, action.fromCell.second);
@@ -91,7 +110,9 @@ QJsonArray UItoBackendConnector::getUpdatedCells() {
 		}
 		actions.append(actionObject);
 	}
-	return actions;
+	data.insert("newCurrentUser", mGame->getCurrentUser()->getName().c_str());
+	data.insert("updatedCells", actions);
+	return data;
 }
 
 void UItoBackendConnector::action(QJsonObject action) {
@@ -107,4 +128,50 @@ void UItoBackendConnector::action(QJsonObject action) {
 	mGame->playerAction(invokingCell, targetCell, actionID);
 	emit boardChanged();
 
+}
+
+QJsonObject UItoBackendConnector::checkUnitAction(QJsonObject action) {
+	QJsonObject invokingCellObj = action.value("invoking_cell").toObject();
+	auto targetCellObj = action.value("target_cell").toObject();
+	auto invokingCell = mGame->
+		getBoard()->
+		getCellAt(invokingCellObj.value("x").toInt(), invokingCellObj.value("y").toInt());
+	auto targetCell = mGame->
+		getBoard()->
+		getCellAt(targetCellObj.value("x").toInt(), targetCellObj.value("y").toInt());
+	int actionID = action.value("action_id").toInt();
+	auto meta = mGame->checkPlayerAction(invokingCell, targetCell, actionID);
+	QJsonObject actionType;
+	if (meta.isMove)
+		actionType.insert("actionType", "move");
+	else if (meta.isAttack)
+		actionType.insert("actionType", "attack");
+	else if (meta.isHeal)
+		actionType.insert("actionType", "heal");
+	else if (meta.isCreate)
+		actionType.insert("actionType", "create");
+	else
+		actionType.insert("actionType", "empty");
+	return actionType;
+}
+
+void UItoBackendConnector::save(QString fileUrl) {
+	std::string url = fileUrl.toStdString();
+	url = url.erase(0, 8);
+	mGame->save(url);
+}
+
+QJsonObject UItoBackendConnector::load(QString fileUrl) {
+	std::string url = fileUrl.toStdString();
+	url = url.erase(0, 8);
+	mGame->load(url);
+	auto boardProperties = mGame->getBoard()->getBoardProperties();
+	QJsonObject boardProp;
+	boardProp.insert("sizeX", boardProperties.sizeX);
+	boardProp.insert("sizeY", boardProperties.sizeY);
+	return boardProp;
+}
+
+void UItoBackendConnector::shutdown() {
+	delete mGame;
 }
