@@ -116,6 +116,12 @@
     <ClCompile Include="source\User.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\GameRulesCustom.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameException.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -216,6 +222,12 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="include\User.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameRulesCustom.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameException.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -200,8 +200,10 @@
     <ClCompile Include="source/UItoBackendConnector.cpp" />
     <ClCompile Include="source\ActionDispatcher.cpp" />
     <ClCompile Include="source\DirtPit.cpp" />
+    <ClCompile Include="source\GameException.cpp" />
     <ClCompile Include="source\GameRules.cpp" />
     <ClCompile Include="source\GameRulesClassic.cpp" />
+    <ClCompile Include="source\GameRulesCustom.cpp" />
     <ClCompile Include="source\GameRulesRandom.cpp" />
     <ClCompile Include="source\Logger.cpp" />
     <ClCompile Include="source\NeutralBoardUnit.cpp" />
@@ -254,8 +256,10 @@
     <ClInclude Include="include/PongoBaseBoardUnit.h" />
     <ClInclude Include="include\ActionDispatcher.h" />
     <ClInclude Include="include\DirtPit.h" />
+    <ClInclude Include="include\GameException.h" />
     <ClInclude Include="include\GameRules.h" />
     <ClInclude Include="include\GameRulesClassic.h" />
+    <ClInclude Include="include\GameRulesCustom.h" />
     <ClInclude Include="include\GameRulesRandom.h" />
     <ClInclude Include="include\Logger.h" />
     <ClInclude Include="include\NeutralBoardUnit.h" />
